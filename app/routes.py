@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request, sessions
 from app import app
 from app.forms import SubmitNameForm
 import requests
@@ -20,6 +20,8 @@ def index():
 @app.route('/getactor', methods=['GET', 'POST'])
 def get_actor():
     app.logger.warning('GUEST READY TO PLAY!!!')
+    print("Request coming from this address: ", request.remote_addr)
+    print(request.headers['Cookie'].split(';')[2].strip())
     form = SubmitNameForm()
     if form.validate_on_submit():
         flash('Info requested for {}'.format(
