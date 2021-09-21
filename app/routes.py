@@ -21,10 +21,11 @@ def index():
 def get_actor():
     app.logger.warning('GUEST READY TO PLAY!!!')
     app.logger.warning("Request coming from this address: " + request.remote_addr)
-    cookie_data = request.headers['Cookie'].split(';')
+    app.logger.info(request.headers)
+    # cookie_data = request.headers['Cookie'].split(';')
     # print('cookie_data: ', cookie_data)
-    if len(cookie_data) >= 2:
-        app.logger.info(cookie_data[2].strip())
+    # if len(cookie_data) >= 2:
+    #     app.logger.info(cookie_data[2].strip())
     form = SubmitNameForm()
     if form.validate_on_submit():
         flash('Info requested for {}'.format(
