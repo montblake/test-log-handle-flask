@@ -100,3 +100,7 @@ ENV/
 
 # vscode
 .vscode
+
+# Logs
+logs/
+test-log-handle.log
