@@ -21,7 +21,7 @@ def index():
 def get_actor():
     app.logger.warning('GUEST READY TO PLAY!!!')
     app.logger.warning("Request coming from this address: " + request.remote_addr)
-    app.logger.info(request.headers)
+    app.logger.info(request.headers['Cookie'])
     # cookie_data = request.headers['Cookie'].split(';')
     # print('cookie_data: ', cookie_data)
     # if len(cookie_data) >= 2:
