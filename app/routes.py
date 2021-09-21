@@ -51,6 +51,7 @@ def dashboard():
 
 
 def search_imdb_with_name(actor_name):
+    app.logger.info('info requested on actor ' + actor_name)
     # search takes in a name and from the response we extract actor_id
     imdb_url = "https://imdb8.p.rapidapi.com/auto-complete?q="
     api_url = imdb_url + actor_name
