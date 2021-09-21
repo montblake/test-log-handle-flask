@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+    <li>This is the first</li>
+
+</ul
+<pre id="output"></pre>
+
+<script>
+    var output = document.getElementById('output');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '{{ url_for('dashboard') }}'');
+    xhr.send();
+
+    setInterval(function() {
+        output.textContent = xhr.responseText;
+    }, 1000);
+</script>
+
+{% endblock %}

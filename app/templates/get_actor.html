@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h2>Enter An Actor</h2>
+    <form action="" method="post" movalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.actorname.label }}<br>
+            {{ form.actorname(size=32, placeholder='Firstname Lastname') }}
+        </p>
+        <p>
+            {{ form.submit() }}
+        </p>
+    </form>
+</div>
+{% endblock %}
