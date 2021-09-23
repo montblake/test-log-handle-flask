@@ -14,35 +14,23 @@ def awkward_greeting():
 
 @app.route('/')
 def index():
-    app.logger.warning('GUEST HAS ARRIVED!!!')
-    app.logger.info("Request coming from this address: " + request.remote_addr)
-    app.logger.info(request.headers['Cookie'])
-    session['arrived'] = True
-    print(session)
+    user_address = get_remote_addr()
+    app.logger.warning('GUEST HAS ARRIVED!!!' + user_address)
     return render_template('index.html', title='Away')
+
 
 @app.route('/getactor', methods=['GET', 'POST'])
 def get_actor():
-    app.logger.warning('GUEST READY TO PLAY!!!')
-    app.logger.warning('START ADDRESS')
-    app.logger.info(get_remote_addr())
-    app.logger.warning('END ADDRESS')
-    app.logger.info(request.headers['Cookie'])
-    # cookie_data = request.headers['Cookie'].split(';')
-    # print('cookie_data: ', cookie_data)
-    # if len(cookie_data) >= 2:
-    #     app.logger.info(cookie_data[2].strip())
+    user_address = get_remote_addr()
+    app.logger.warning('GUEST READY TO PLAY!!!' + user_address)
     form = SubmitNameForm()
     if form.validate_on_submit():
+        user_address = get_remote_addr()
         app.logger.warning('Info requested for {}'.format(form.actorname.data))
-        app.logger.info("Request coming from this address: " + request.remote_addr)
+        app.logger.info("Request coming from this address: " + user_address)
         app.logger.info(request.headers['Cookie'])
         results = search_imdb_with_name(form.actorname.data)
-        # flash('Info requested by: {}'.format(
-        #     HOW DO I GET THIS DATA HERE
-        # ))
-        
-        
+
         return results
     return render_template('get_actor.html', title='Get Actor', form=form)
     
