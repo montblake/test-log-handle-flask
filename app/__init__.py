@@ -26,7 +26,8 @@ class RequestFormatter(logging.Formatter):
         return super().format(record)
 
 formatter = RequestFormatter(
-    '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
+    # '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
+    '[%(asctime)s] %(url)s\n'
     '%(levelname)s in %(module)s: %(message)s\n'
 )
 
