@@ -71,5 +71,5 @@ def get_remote_addr():
     address = request.headers.get('X-Forwarded-For', request.remote_addr)
     if address is None:  # pragma: no cover
         address = 'x.x.x.x'
-    address = address.encode('utf-8').split(b',')[0].strip()
+    # address = address.encode('utf-8').split(b',')[0].strip()
     return address
