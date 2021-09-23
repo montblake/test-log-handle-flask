@@ -5,10 +5,13 @@ from logging.handlers import RotatingFileHandler
 import os
 from flask import has_request_context, request
 from flask.logging import default_handler
-
+from flask_paranoid import Paranoid
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+paranoid = Paranoid(app)
+paranoid.redirect_view = '/'
 
 class RequestFormatter(logging.Formatter):
     def format(self, record):
