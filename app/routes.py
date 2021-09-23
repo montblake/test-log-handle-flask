@@ -24,14 +24,9 @@ def index():
 @app.route('/getactor', methods=['GET', 'POST'])
 def get_actor():
     app.logger.warning('GUEST READY TO PLAY!!!')
-    address = request.headers.get('X-Forwarded-For', request.remote_addr)
-    if address is None:  # pragma: no cover
-        address = 'x.x.x.x'
-    address = address.encode('utf-8').split(b',')[0].strip()
-    app.logger.warning("START ADDRESS")
-    app.logger.warning(address)
-    app.logger.warning("START ADDRESS")
-    app.logger.info("Request coming from this address: " + request.remote_addr)
+    app.logger.warning('START ADDRESS')
+    app.logger.info(get_remote_addr())
+    app.logger.warning('END ADDRESS')
     app.logger.info(request.headers['Cookie'])
     # cookie_data = request.headers['Cookie'].split(';')
     # print('cookie_data: ', cookie_data)
