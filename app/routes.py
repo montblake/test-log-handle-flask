@@ -15,22 +15,19 @@ def awkward_greeting():
 @app.route('/')
 def index():
     user_address = get_remote_addr()
-    app.logger.warning('GUEST HAS ARRIVED!!!' + user_address)
+    app.logger.info('GUEST HAS ARRIVED! ' + user_address)
     return render_template('index.html', title='Away')
 
 
 @app.route('/getactor', methods=['GET', 'POST'])
 def get_actor():
     user_address = get_remote_addr()
-    app.logger.warning('GUEST READY TO PLAY!!!' + user_address)
+    app.logger.info('GUEST READY TO PLAY! ' + user_address)
     form = SubmitNameForm()
     if form.validate_on_submit():
         user_address = get_remote_addr()
-        app.logger.warning('Info requested for {}'.format(form.actorname.data))
-        app.logger.info("Request coming from this address: " + user_address)
-        app.logger.info(request.headers['Cookie'])
+        app.logger.info(user_address + ' requested information on ' + form.actorname.data)
         results = search_imdb_with_name(form.actorname.data)
-
         return results
     return render_template('get_actor.html', title='Get Actor', form=form)
     
@@ -46,7 +43,7 @@ def dashboard():
 
 
 def search_imdb_with_name(actor_name):
-    app.logger.info('info requested on actor ' + actor_name)
+    app.logger.debug('search_imdb_with_name CALLED')
     # search takes in a name and from the response we extract actor_id
     imdb_url = "https://imdb8.p.rapidapi.com/auto-complete?q="
     api_url = imdb_url + actor_name
@@ -59,5 +56,4 @@ def get_remote_addr():
     address = request.headers.get('X-Forwarded-For', request.remote_addr)
     if address is None:  # pragma: no cover
         address = 'x.x.x.x'
-    # address = address.encode('utf-8').split(b',')[0].strip()
     return address

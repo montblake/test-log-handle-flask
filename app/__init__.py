@@ -13,11 +13,12 @@ app.config.from_object(Config)
 paranoid = Paranoid(app)
 paranoid.redirect_view = '/'
 
+
 class RequestFormatter(logging.Formatter):
     def format(self, record):
         if has_request_context():
             record.url = request.url
-            record.remote_addr = request.remote_addr
+            record.remote_addr = request.headers.get('X-Forwarded-For', request.remote_addr)
         else:
             record.url = None
             record.remote_addr = None
@@ -26,7 +27,7 @@ class RequestFormatter(logging.Formatter):
 
 formatter = RequestFormatter(
     '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
-    '%(levelname)s in %(module)s: %(message)s'
+    '%(levelname)s in %(module)s: %(message)s\n'
 )
 
 
@@ -42,8 +43,7 @@ file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 app.logger.addHandler(file_handler)
 
-app.logger.setLevel(logging.DEBUG)
-app.logger.info('TestLogHandleApp startup')
-
+app.logger.setLevel(logging.INFO)
+app.logger.info('App startup')
 
 from app import routes, errors
