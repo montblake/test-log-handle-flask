@@ -8,8 +8,11 @@ from time import sleep
 IMDB_KEY = app.config['IMDB_KEY']
 OMDB_KEY = app.config['OMDB_KEY']
 
-@app.route('/awkward')
-def awkward_greeting():
+@app.route('/create_server_error')
+def create_server_error():
+    post = this.thing
+    post = post.split('')
+    print(post)
     return "I didn't think you were coming. This is awkward."
 
 @app.route('/')
