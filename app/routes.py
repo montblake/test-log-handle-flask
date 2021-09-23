@@ -56,4 +56,10 @@ def get_remote_addr():
     address = request.headers.get('X-Forwarded-For', request.remote_addr)
     if address is None:  # pragma: no cover
         address = 'x.x.x.x'
+
+    # DO NOT STORE A USERS COMPLETE IP ADDRESS
+    address = address.split('.')
+    address[2], address[3] = 'XX', 'XX'
+    address = '.'.join(address)
+
     return address
